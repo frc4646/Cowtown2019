@@ -37,4 +37,15 @@ public class RobotMap {
   public static final int analogGyroPort = 0;
   public static final int driveEncoderLeft = 0;
   public static final int driveEncoderRight = 1;
+
+  public static final int hatchPusherPort1 = 0;
+  public static final int hatchPusherPort2 = 1;
+  public static final int hatchExtenderPort1 = 2;
+  public static final int hatchExtenderPort2 = 3;
+  
+  public static final int linkageExtenderPort = 0;
+  public static final int cargoWheelPort = 1;
+
+  public static final int frontClimberPort = 0;
+  public static final int backClimberPort = 1;
 }

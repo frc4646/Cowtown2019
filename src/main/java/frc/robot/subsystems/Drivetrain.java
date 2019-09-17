@@ -18,18 +18,37 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.AnalogGyro;
 
 /**
- * Add your docs here.
+ * Docs: The drivetrain is powered by two VictorSPXs and two TalonSRXs.
+ * The drivetrain is currently driven by running percentages, but we look
+ * forward to get PID Loop movement as an option soon.
+ * 
+ * You can drive by percent with the function:
+ * driveByPercent(double leftSpeed, double rightSpeed);
+ * 
+ * The drivetrain also has a gyro. You can reset the gyro's rotation with this:
+ * resetGyro();
+ * 
+ * To get angle of the gyro, use:
+ * getAngle();
+ * 
+ * The drivetrain also has an encoder to measure how far the motor moves.
+ * 
+ * To reset the encoder, use:
+ * resetDriveEncoderCount();
+ * 
+ * To measure the encoder distance, use:
+ * getDriveEncoderDistance();
+ * 
+ * That's all for now. This documentation is a WIP.
  */
-public class Drivetrain extends Subsystem {
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
 
-  final VictorSPX frontLeftDrive;
-  final TalonSRX frontRightDrive;
-  final TalonSRX backLeftDrive;
-  final VictorSPX backRightDrive;
-  final AnalogGyro gyro;
-  public final double spinSpeed;
+public class Drivetrain extends Subsystem {
+
+  private final VictorSPX frontLeftDrive;
+  private final TalonSRX frontRightDrive;
+  private final TalonSRX backLeftDrive;
+  private final VictorSPX backRightDrive;
+  private final AnalogGyro gyro;
   private final Encoder driveEncoder;
   private final int encoderCountsPerInch;
 
@@ -45,27 +64,22 @@ public class Drivetrain extends Subsystem {
   
     gyro = new AnalogGyro(RobotMap.analogGyroPort);
 
-    spinSpeed = 0.5;
-
     driveEncoder = new Encoder(RobotMap.driveEncoderLeft, RobotMap.driveEncoderRight);
     encoderCountsPerInch = 0; //Idk
   }
 
-
   @Override
   public void initDefaultCommand() 
   {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
     setDefaultCommand(new DriveTeleOp());
   }
+
   public void driveByPercent(double leftSpeed, double rightSpeed)
   {
-      frontLeftDrive.set(ControlMode.PercentOutput, leftSpeed);
-      frontRightDrive.set(ControlMode.PercentOutput, rightSpeed);
-      backLeftDrive.set(ControlMode.PercentOutput, leftSpeed);
-      backRightDrive.set(ControlMode.PercentOutput, rightSpeed);
-
+    frontLeftDrive.set(ControlMode.PercentOutput, leftSpeed);
+    frontRightDrive.set(ControlMode.PercentOutput, rightSpeed);
+    backLeftDrive.set(ControlMode.PercentOutput, leftSpeed);
+    backRightDrive.set(ControlMode.PercentOutput, rightSpeed);
   }
 
   public void resetGyro()
