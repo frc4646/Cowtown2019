@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 //Subsystems:
 import frc.robot.IO;
-import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -26,6 +26,10 @@ import frc.robot.subsystems.Drivetrain;
  */
 public class Robot extends TimedRobot {
   public static Drivetrain m_drivetrain;
+  public static Climber m_climber;
+  public static Beak m_beak;
+  public static FourBarLinkage m_fourBarLinkage;
+
   public static IO m_io;
   public static OI m_oi;
 
@@ -39,6 +43,10 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     m_drivetrain = new Drivetrain();
+    m_climber = new Climber();
+    m_beak = new Beak();
+    m_fourBarLinkage = new FourBarLinkage();
+    
     m_io = new IO();
     m_oi = new OI();
     // m_chooser.setDefaultOption("Default Auto", new SpinMeAuto());
