@@ -64,8 +64,8 @@ public class Drivetrain extends Subsystem {
   
     gyro = new AnalogGyro(RobotMap.analogGyroPort);
 
-    driveEncoder = new Encoder(RobotMap.driveEncoderLeft, RobotMap.driveEncoderRight);
-    encoderCountsPerInch = 0; //Idk
+    driveEncoder = new Encoder(RobotMap.driveEncoderPort1, RobotMap.driveEncoderPort2);
+    encoderCountsPerInch = -1; //Undetermined
   }
 
   @Override

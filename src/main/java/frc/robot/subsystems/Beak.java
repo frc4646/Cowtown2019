@@ -18,37 +18,36 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
  */
 public class Beak extends Subsystem {
   
-  private DoubleSolenoid hatchPusher;
-  private DoubleSolenoid hatchExtender;
+  private DoubleSolenoid extendHatcher;
+  private DoubleSolenoid beakGrip;
 
   public Beak()
   {
-    hatchPusher = new DoubleSolenoid(RobotMap.hatchPusherPort1, RobotMap.hatchPusherPort2);
-    hatchExtender = new DoubleSolenoid(RobotMap.hatchExtenderPort1, RobotMap.hatchExtenderPort2);
-    
+    extendHatcher = new DoubleSolenoid(RobotMap.hatchExtenderPort1, RobotMap.hatchExtenderPort2);
+    beakGrip = new DoubleSolenoid(RobotMap.beakGripPort1, RobotMap.beakGripPort2);
   }
 
   @Override
   public void initDefaultCommand() {
   }
 
-  void extendHatcher()
+  public void extendHatcher()
   {
-    hatchPusher.set(Value.kForward);
+    extendHatcher.set(Value.kForward);
   }
 
-  void retractHatcher()
+  public void retractHatcher()
   {
-    hatchPusher.set(Value.kReverse);
+    extendHatcher.set(Value.kReverse);
   }
 
-  void pushHatcher()
+  public void openHatcher()
   {
-    hatchPusher.set(Value.kForward);
+    beakGrip.set(Value.kForward);
   }
 
-  void pullHatcher()
+  public void closeHatcher()
   {
-    hatchPusher.set(Value.kReverse);
+    beakGrip.set(Value.kReverse);
   }
 }

@@ -34,18 +34,29 @@ public class RobotMap {
   public static final int mechJoyPort = 2;
 
   //The below motor ports are not determined yet
-  public static final int analogGyroPort = 0;
-  public static final int driveEncoderLeft = 0;
-  public static final int driveEncoderRight = 1;
-
-  public static final int hatchPusherPort1 = 0;
-  public static final int hatchPusherPort2 = 1;
-  public static final int hatchExtenderPort1 = 2;
-  public static final int hatchExtenderPort2 = 3;
   
-  public static final int linkageExtenderPort = 0;
-  public static final int cargoWheelPort = 1;
+  //Drivetrain
+  public static final int analogGyroPort = 0;
+  public static final int driveEncoderPort1 = 0;
+  public static final int driveEncoderPort2 = 1;
 
+  //Beak
+  public static final int hatchExtenderPort1 = 0;
+  public static final int hatchExtenderPort2 = 1;
+  public static final int beakGripPort1 = 2;
+  public static final int beakGripPort2 = 3;
+  
+  //Linkage
+  public static final int linkagePositionPort = 0;
+  public static final int cargoWheelPort = 1;
+  public static final int linkageEncoderPort1 = 0;
+  public static final int linkageEncoderPort2 = 1;
+
+  //Climber
   public static final int frontClimberPort = 0;
   public static final int backClimberPort = 1;
+  public static final int frontClimberEncoderPort1 = 0;
+  public static final int frontClimberEncoderPort2 = 1;
+  public static final int backClimberEncoderPort1 = 2;
+  public static final int backClimberEncoderPort2 = 3;
 }

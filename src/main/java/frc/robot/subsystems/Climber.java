@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Spark;
 
 /**
@@ -18,22 +19,46 @@ public class Climber extends Subsystem {
 
   private final Spark frontClimberSpark;
   private final Spark backClimberSpark;
+  private final Encoder frontClimberEncoder;
+  private final Encoder backClimberEncoder;
+  private final int encoderCountsPerInch;
 
   public Climber()
   {
     frontClimberSpark = new Spark(RobotMap.frontClimberPort);
     backClimberSpark = new Spark(RobotMap.backClimberPort);
+    frontClimberEncoder = new Encoder(RobotMap.frontClimberEncoderPort1, RobotMap.frontClimberEncoderPort2);
+    backClimberEncoder = new Encoder(RobotMap.backClimberEncoderPort1, RobotMap.backClimberEncoderPort2);
+    encoderCountsPerInch = -1; //Undetermined
   }
 
   @Override
   public void initDefaultCommand() {
   }
 
-  void backClimber(double speed) {
+  public void backDrive(double speed) {
     backClimberSpark.set(speed);
   }
 
-  void frontClimber(double speed) {
+  public void frontDrive(double speed) {
     frontClimberSpark.set(speed);
+  }
+
+  public void resetEncoders()
+  {
+    frontClimberEncoder.reset();
+    backClimberEncoder.reset();
+  }
+
+  public int getDriveEncodersCount(int encoder)
+  {
+    if (encoder == 1) return frontClimberEncoder.get();
+    else if (encoder == 2) return backClimberEncoder.get();
+    else return -1;
+  }
+
+  public double getDriveEncodersDistance(int encoder)
+  {
+    return getDriveEncodersCount(encoder) / encoderCountsPerInch;
   }
 }
