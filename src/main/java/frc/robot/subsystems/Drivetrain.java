@@ -48,8 +48,12 @@ public class Drivetrain extends Subsystem {
   private final TalonSRX frontRightDrive;
   private final TalonSRX backLeftDrive;
   private final VictorSPX backRightDrive;
+  private final Encoder frontLeftEncoder;
+  private final Encoder frontRightEncoder;
+  private final Encoder backLeftEncoder;
+  private final Encoder backRightEncoder;
+
   private final AnalogGyro gyro;
-  private final Encoder driveEncoder;
   private final int encoderCountsPerInch;
 
   public Drivetrain()
@@ -59,12 +63,16 @@ public class Drivetrain extends Subsystem {
     backLeftDrive = new TalonSRX(RobotMap.backLeftDrivePort);
     backRightDrive = new VictorSPX(RobotMap.backRightDrivePort);
 
+    frontLeftEncoder = new Encoder(RobotMap.frontLeftEncoderPort1, RobotMap.frontLeftEncoderPort2);
+    frontRightEncoder = new Encoder(RobotMap.frontRightEncoderPort1, RobotMap.frontRightEncoderPort2);
+    backLeftEncoder = new Encoder(RobotMap.backLeftEncoderPort1, RobotMap.backLeftEncoderPort2);
+    backRightEncoder = new Encoder(RobotMap.backRightEncoderPort1, RobotMap.backRightEncoderPort2);
+
     frontRightDrive.setInverted(true);
     backRightDrive.setInverted(true);
   
     gyro = new AnalogGyro(RobotMap.analogGyroPort);
-
-    driveEncoder = new Encoder(RobotMap.driveEncoderPort1, RobotMap.driveEncoderPort2);
+    
     encoderCountsPerInch = -1; //Undetermined
   }
 
@@ -94,15 +102,22 @@ public class Drivetrain extends Subsystem {
 
   public void resetDriveEncoderCount()
   {
-    driveEncoder.reset();
+    frontLeftEncoder.reset();
+    frontRightEncoder.reset();
+    backLeftEncoder.reset();
+    backRightEncoder.reset();
   }
 
-  public double getDriveEncoderCount()
+  public double getDriveEncoderCount(int encoder)
   {
-    return driveEncoder.get();
+    if (encoder == 1) return frontLeftEncoder.get();
+    else if (encoder == 2) return frontRightEncoder.get();
+    else if (encoder == 3) return backLeftEncoder.get();
+    else if (encoder == 4) return backRightEncoder.get();
+    else return -1;
   }
 
-  public double getDriveEncoderDistance() {
-		return getDriveEncoderCount() / encoderCountsPerInch;
+  public double getDriveEncoderDistance(int encoder) {
+		return getDriveEncoderCount(encoder) / encoderCountsPerInch;
 	}
 }

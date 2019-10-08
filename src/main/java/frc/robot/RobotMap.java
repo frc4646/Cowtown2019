@@ -37,8 +37,14 @@ public class RobotMap {
   
   //Drivetrain
   public static final int analogGyroPort = 0;
-  public static final int driveEncoderPort1 = 0;
-  public static final int driveEncoderPort2 = 1;
+  public static final int frontLeftEncoderPort1 = 0;
+  public static final int frontLeftEncoderPort2 = 1;
+  public static final int frontRightEncoderPort1 = 2;
+  public static final int frontRightEncoderPort2 = 3;
+  public static final int backLeftEncoderPort1 = 4;
+  public static final int backLeftEncoderPort2 = 5;
+  public static final int backRightEncoderPort1 = 6;
+  public static final int backRightEncoderPort2 = 7;
 
   //Beak
   public static final int hatchExtenderPort1 = 0;
