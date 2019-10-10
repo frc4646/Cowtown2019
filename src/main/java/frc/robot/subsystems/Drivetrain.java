@@ -14,7 +14,6 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import frc.robot.RobotMap;
 import frc.robot.commands.DriveTeleOp;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.AnalogGyro;
 
 /**
@@ -48,13 +47,13 @@ public class Drivetrain extends Subsystem {
   private final TalonSRX frontRightDrive;
   private final TalonSRX backLeftDrive;
   private final VictorSPX backRightDrive;
-  private final Encoder frontLeftEncoder;
+  /*private final Encoder frontLeftEncoder;
   private final Encoder frontRightEncoder;
   private final Encoder backLeftEncoder;
-  private final Encoder backRightEncoder;
+  private final Encoder backRightEncoder;*/
 
   private final AnalogGyro gyro;
-  private final int encoderCountsPerInch;
+  //private final int encoderCountsPerInch;
 
   public Drivetrain()
   {
@@ -63,17 +62,17 @@ public class Drivetrain extends Subsystem {
     backLeftDrive = new TalonSRX(RobotMap.backLeftDrivePort);
     backRightDrive = new VictorSPX(RobotMap.backRightDrivePort);
 
-    frontLeftEncoder = new Encoder(RobotMap.frontLeftEncoderPort1, RobotMap.frontLeftEncoderPort2);
+    /*frontLeftEncoder = new Encoder(RobotMap.frontLeftEncoderPort1, RobotMap.frontLeftEncoderPort2);
     frontRightEncoder = new Encoder(RobotMap.frontRightEncoderPort1, RobotMap.frontRightEncoderPort2);
     backLeftEncoder = new Encoder(RobotMap.backLeftEncoderPort1, RobotMap.backLeftEncoderPort2);
-    backRightEncoder = new Encoder(RobotMap.backRightEncoderPort1, RobotMap.backRightEncoderPort2);
+    backRightEncoder = new Encoder(RobotMap.backRightEncoderPort1, RobotMap.backRightEncoderPort2);*/
 
     frontRightDrive.setInverted(true);
     backRightDrive.setInverted(true);
   
     gyro = new AnalogGyro(RobotMap.analogGyroPort);
-    
-    encoderCountsPerInch = -1; //Undetermined
+
+    //encoderCountsPerInch = -1; //Undetermined
   }
 
   @Override
@@ -100,7 +99,7 @@ public class Drivetrain extends Subsystem {
     return gyro.getAngle();
   }
 
-  public void resetDriveEncoderCount()
+  /*public void resetDriveEncoderCount()
   {
     frontLeftEncoder.reset();
     frontRightEncoder.reset();
@@ -119,5 +118,5 @@ public class Drivetrain extends Subsystem {
 
   public double getDriveEncoderDistance(int encoder) {
 		return getDriveEncoderCount(encoder) / encoderCountsPerInch;
-	}
+	}*/
 }
