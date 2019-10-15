@@ -17,12 +17,12 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
  */
 public class Beak extends Subsystem {
   
-  private DoubleSolenoid extendHatcher;
+  private DoubleSolenoid beakArm;
   private DoubleSolenoid beakGrip;
 
   public Beak()
   {
-    extendHatcher = new DoubleSolenoid(RobotMap.hatchExtenderPort1, RobotMap.hatchExtenderPort2);
+    beakArm = new DoubleSolenoid(RobotMap.hatchExtenderPort1, RobotMap.hatchExtenderPort2);
     beakGrip = new DoubleSolenoid(RobotMap.beakGripPort1, RobotMap.beakGripPort2);
   }
 
@@ -32,12 +32,12 @@ public class Beak extends Subsystem {
 
   public void extendHatcher()
   {
-    extendHatcher.set(Value.kForward);
+    beakArm.set(Value.kForward);
   }
 
   public void retractHatcher()
   {
-    extendHatcher.set(Value.kReverse);
+    beakArm.set(Value.kReverse);
   }
 
   public void openHatcher()
