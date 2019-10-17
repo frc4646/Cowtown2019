@@ -23,6 +23,7 @@ public class LinkageGoToHeight extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    Robot.m_fourBarLinkage.setUsingJoysticks(false);
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -34,12 +35,14 @@ public class LinkageGoToHeight extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return Robot.m_fourBarLinkage.linkageGoToHeight(wantedHeight);
+    return Robot.m_fourBarLinkage.isAtHeight(wantedHeight);
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    Robot.m_fourBarLinkage.setUsingJoysticks(true);
+    Robot.m_fourBarLinkage.linkageHoldHeight();
   }
 
   // Called when another command which requires one or more of the same

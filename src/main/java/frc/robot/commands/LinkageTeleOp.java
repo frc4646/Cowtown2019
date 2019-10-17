@@ -25,7 +25,17 @@ public class LinkageTeleOp extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.m_fourBarLinkage.linkageLift(Robot.m_io.getmechJoyY());
+    if (Robot.m_fourBarLinkage.getUsingJoysticks())
+    {
+      if (Robot.m_io.getmechJoyY() == 0)
+      {
+        Robot.m_fourBarLinkage.linkageHoldHeight();
+      }
+      else
+      {
+        Robot.m_fourBarLinkage.linkageLift(Robot.m_io.getmechJoyY());
+      }
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -37,7 +47,7 @@ public class LinkageTeleOp extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.m_fourBarLinkage.linkageLift(0.0);
+    Robot.m_fourBarLinkage.linkageHoldHeight();
   }
 
   // Called when another command which requires one or more of the same
