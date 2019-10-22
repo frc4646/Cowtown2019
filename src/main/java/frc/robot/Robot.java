@@ -26,7 +26,6 @@ import frc.robot.subsystems.*;
  */
 public class Robot extends TimedRobot {
   public static Drivetrain m_drivetrain;
-  public static Climber m_climber;
   public static Beak m_beak;
   public static FourBarLinkage m_fourBarLinkage;
   public static Vision m_vision;
@@ -44,7 +43,6 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     m_drivetrain = new Drivetrain();
-    m_climber = new Climber();
     m_beak = new Beak();
     m_fourBarLinkage = new FourBarLinkage();
     m_vision = new Vision();
