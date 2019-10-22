@@ -29,6 +29,7 @@ public class Robot extends TimedRobot {
   public static Climber m_climber;
   public static Beak m_beak;
   public static FourBarLinkage m_fourBarLinkage;
+  public static Vision m_vision;
 
   public static IO m_io;
   public static OI m_oi;
@@ -46,6 +47,7 @@ public class Robot extends TimedRobot {
     m_climber = new Climber();
     m_beak = new Beak();
     m_fourBarLinkage = new FourBarLinkage();
+    m_vision = new Vision();
     
     m_io = new IO();
     m_oi = new OI();
