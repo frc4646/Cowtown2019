@@ -53,6 +53,7 @@ public class Drivetrain extends Subsystem {
   private final Encoder backRightEncoder;*/
 
   private final AnalogGyro gyro;
+  private int direction;
   //private final int encoderCountsPerInch;
 
   public Drivetrain()
@@ -73,6 +74,7 @@ public class Drivetrain extends Subsystem {
     gyro = new AnalogGyro(RobotMap.analogGyroPort);
 
     //encoderCountsPerInch = -1; //Undetermined
+    direction = 1;
   }
 
   @Override
@@ -83,10 +85,15 @@ public class Drivetrain extends Subsystem {
 
   public void driveByPercent(double leftSpeed, double rightSpeed)
   {
-    frontLeftDrive.set(ControlMode.PercentOutput, leftSpeed);
-    frontRightDrive.set(ControlMode.PercentOutput, rightSpeed);
-    backLeftDrive.set(ControlMode.PercentOutput, leftSpeed);
-    backRightDrive.set(ControlMode.PercentOutput, rightSpeed);
+    frontLeftDrive.set(ControlMode.PercentOutput, leftSpeed * direction);
+    frontRightDrive.set(ControlMode.PercentOutput, rightSpeed * direction);
+    backLeftDrive.set(ControlMode.PercentOutput, leftSpeed * direction);
+    backRightDrive.set(ControlMode.PercentOutput, rightSpeed * direction);
+  }
+
+  public void invertDirection()
+  {
+    direction = -direction;
   }
 
   public void resetGyro()

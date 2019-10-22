@@ -12,6 +12,7 @@ import frc.robot.commands.BeakRetract;
 import frc.robot.commands.CargoIntake;
 import frc.robot.commands.CargoOutake;
 import frc.robot.commands.CloseBeak;
+import frc.robot.commands.InvertDriveDirection;
 import frc.robot.commands.OpenBeak;
 
 public class OI 
@@ -20,6 +21,8 @@ public class OI
   {
     // Put button mapped commands here.
     // Example: Robot.m_io.mechButton1.whenPressed(new exampleCommand1());
+
+
     //Button map to command that is not created v
     //Robot.m_io.rightButten3.whenPressed(new HatchLineUp());
 
@@ -33,7 +36,8 @@ public class OI
     Robot.m_io.mechButton12.whenPressed(new OpenBeak());
     Robot.m_io.mechButton10.whenPressed(new CloseBeak());
 
-
+    // Right Joy Button for Invert Drive Direction
+    Robot.m_io.leftButton2.whenPressed(new InvertDriveDirection());
 
 
   }
