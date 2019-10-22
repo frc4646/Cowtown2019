@@ -7,12 +7,33 @@
 
 package frc.robot;
 
+import frc.robot.commands.BeakExtend;
+import frc.robot.commands.BeakRetract;
+import frc.robot.commands.CargoIntake;
+import frc.robot.commands.CargoOutake;
+import frc.robot.commands.CloseBeak;
+import frc.robot.commands.OpenBeak;
+
 public class OI 
 {
   public OI()
   {
     // Put button mapped commands here.
-    // Example: Robot.m_IO.mechButton1.whenPressed(new exampleCommand1());
+    // Example: Robot.m_io.mechButton1.whenPressed(new exampleCommand1());
+    //Button map to command that is not created v
+    //Robot.m_io.rightButten3.whenPressed(new HatchLineUp());
+
+    // Mech Buttons for Cargo Intake/Outake
+    Robot.m_io.mechButton3.whenPressed(new CargoIntake());
+    Robot.m_io.mechButton5.whenPressed(new CargoOutake());
+
+    // Mech Button for Beak
+    Robot.m_io.mechButton9.whenPressed(new BeakExtend());
+    Robot.m_io.mechButton11.whenPressed(new BeakRetract());
+    Robot.m_io.mechButton12.whenPressed(new OpenBeak());
+    Robot.m_io.mechButton10.whenPressed(new CloseBeak());
+
+
 
 
   }
