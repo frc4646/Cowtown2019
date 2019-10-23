@@ -152,4 +152,17 @@ public class FourBarLinkage extends Subsystem {
   {
     cargoWheelSpark.set(-speed);
   }
+
+  public double Level1Height(int height)
+  {
+    return level1Height;
+  }
+  public double Level2Height(int height)
+  {
+    return level2Height;
+  }
+  public double Level3Height(int height)
+  {
+    return level3Height;
+  }
 }

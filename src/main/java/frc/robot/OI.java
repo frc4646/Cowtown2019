@@ -14,6 +14,7 @@ import frc.robot.commands.CargoOutake;
 import frc.robot.commands.CloseBeak;
 import frc.robot.commands.InvertDriveDirection;
 import frc.robot.commands.OpenBeak;
+import frc.robot.commands.LinkageGoToHeight;
 
 public class OI 
 {
@@ -33,12 +34,16 @@ public class OI
     // Mech Button for Beak
     Robot.m_io.mechButton9.whenPressed(new BeakExtend());
     Robot.m_io.mechButton11.whenPressed(new BeakRetract());
-    Robot.m_io.mechButton12.whenPressed(new OpenBeak());
-    Robot.m_io.mechButton10.whenPressed(new CloseBeak());
+    Robot.m_io.mechButton4.whenPressed(new OpenBeak());
+    Robot.m_io.mechButton6.whenPressed(new CloseBeak());
 
     // Right Joy Button for Invert Drive Direction
     Robot.m_io.leftButton2.whenPressed(new InvertDriveDirection());
 
-    
+    // Mech Buttons for Linkage Heights
+    Robot.m_io.mechButton12.whenPressed(new LinkageGoToHeight(Robot.m_fourBarLinkage.level1Height));
+    Robot.m_io.mechButton10.whenPressed(new LinkageGoToHeight(Robot.m_fourBarLinkage.level2Height));
+    Robot.m_io.mechButton8.whenPressed(new LinkageGoToHeight(Robot.m_fourBarLinkage.level3Height));
+
   }
 }
