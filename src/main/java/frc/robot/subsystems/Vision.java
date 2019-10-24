@@ -25,27 +25,33 @@ public class Vision extends Subsystem {
 
   NetworkTableInstance inst;
 
-  NetworkTable hatchTable;
-  NetworkTable cargoTable;
+  NetworkTable hatchTargetTable;
 
   NetworkTableEntry isTrackingEntry;
-  NetworkTableEntry hatchXEntry;
-  NetworkTableEntry hatchYEntry;
-  NetworkTableEntry hatchDistance;
+  NetworkTableEntry targetXEntry;
+  NetworkTableEntry targetYEntry;
+  NetworkTableEntry targetArea;
 
   public Vision()
   {
     inst = NetworkTableInstance.getDefault();
 
-    hatchTable = inst.getTable("Microsoft® LifeCam HD-3000");
-    cargoTable = inst.getTable("cargoTable");
+    hatchTargetTable = inst.getTable("Microsoft® LifeCam HD-3000");
 
-    isTrackingEntry = hatchTable.getEntry("is_valid");
-    hatchXEntry = hatchTable.getEntry("yaw");
-    hatchYEntry = hatchTable.getEntry("pitch");
-    hatchDistance = hatchTable.getEntry("distance");
+    isTrackingEntry = hatchTargetTable.getEntry("is_valid");
+    targetXEntry = hatchTargetTable.getEntry("yaw");
+    targetYEntry = hatchTargetTable.getEntry("pitch");
+    targetArea = hatchTargetTable.getEntry("distance");
 
     inst.startClientTeam(4646);
+  }
+
+  @Override
+  public void initDefaultCommand() {
+    // Set the default command for a subsystem here.
+    // setDefaultCommand(new MySpecialCommand());
+
+    // This does not need a default command.
   }
 
   public void updatesCameraValues()
@@ -53,19 +59,19 @@ public class Vision extends Subsystem {
     //add an entry listener for changed values of "X", the lambda ("->" operator)
       //defines the code that should run when "X" changes
 
-    hatchTable.addEntryListener("is_valid", (table, key, entry, value, flags) -> {
+    hatchTargetTable.addEntryListener("is_valid", (table, key, entry, value, flags) -> {
       System.out.println("is_valid changed value: " + value.getValue());
     }, EntryListenerFlags.kNew | EntryListenerFlags.kUpdate);
 
-    hatchTable.addEntryListener("yaw", (table, key, entry, value, flags) -> {
+    hatchTargetTable.addEntryListener("yaw", (table, key, entry, value, flags) -> {
       System.out.println("yaw changed value: " + value.getValue());
     }, EntryListenerFlags.kNew | EntryListenerFlags.kUpdate);
 
-    hatchTable.addEntryListener("pitch", (table, key, entry, value, flags) -> {
+    hatchTargetTable.addEntryListener("pitch", (table, key, entry, value, flags) -> {
       System.out.println("pitch changed value: " + value.getValue());
     }, EntryListenerFlags.kNew | EntryListenerFlags.kUpdate);
 
-    hatchTable.addEntryListener("distance", (table, key, entry, value, flags) -> {
+    hatchTargetTable.addEntryListener("distance", (table, key, entry, value, flags) -> {
       System.out.println("distance changed value: " + value.getValue());
     }, EntryListenerFlags.kNew | EntryListenerFlags.kUpdate);
 
@@ -78,9 +84,58 @@ public class Vision extends Subsystem {
    }
   }
 
-  @Override
-  public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
+  public boolean IsTracking()
+  {
+    return isTrackingEntry.getBoolean(false);
+  }
+
+  public double TargetXEntry()
+  {
+    return targetXEntry.getDouble(-1);
+  }
+
+  public double TargetYEntry()
+  {
+    return targetYEntry.getDouble(-1);
+  }
+
+  //Returns the sum of the area of both the vision tape targets,
+  //only if both tapes are visible.
+  public double TargetArea()
+  {
+    return targetArea.getDouble(-1);
+  }
+
+  public double[] GetDistAng()
+  {
+    if (IsTracking())
+    {
+      double distance = TargetArea(); //TODO: Get the actual distance in feet, not the area. Max area should be arround 20K.
+      double angle = -Math.atan(distance / TargetXEntry());
+      double[] distAng = new double[]{distance, angle};
+      return distAng;
+    }
+    else
+    {
+      return new double[]{-1};
+    }
+  }
+
+  public double[] TimeAwayAtSpeed() //In seconds and percentage speed.
+  {
+    if (IsTracking()) 
+    {
+      //Lets assume that it takes one second for the robot to 
+        //drive one foot when running at 50 percent drivetrain power.
+      double speed = .5;
+      double timeToDistScale = 1;
+      double time = GetDistAng()[0] * timeToDistScale;
+      double[] timeSped = new double[]{time, speed};
+      return timeSped;
+    }
+    else
+    {
+      return new double[]{-1};
+    }
   }
 }

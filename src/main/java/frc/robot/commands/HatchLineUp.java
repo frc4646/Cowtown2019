@@ -7,41 +7,46 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.CommandGroup;
+
+//Commands
+import frc.robot.commands.FindHatch;
+import frc.robot.commands.FaceAngle;
+import frc.robot.commands.DriveByTime;
 import frc.robot.Robot;
+import frc.robot.commands.BeakExtend;
+import frc.robot.commands.BeakRetract;
+import frc.robot.commands.OpenBeak;
+import frc.robot.commands.CloseBeak;
 
-public class HatchLineUp extends Command {
+public class HatchLineUp extends CommandGroup {
+  /**
+   * Add your docs here.
+   */
   public HatchLineUp() {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
-    requires(Robot.m_beak);
-    requires(Robot.m_vision);
-  }
+    // Add Commands here:
+    // e.g. addSequential(new Command1());
+    // addSequential(new Command2());
+    // these will run in order.
 
-  // Called just before this Command runs the first time
-  @Override
-  protected void initialize() {
-  }
+    // To run multiple commands at the same time,
+    // use addParallel()
+    // e.g. addParallel(new Command1());
+    // addSequential(new Command2());
+    // Command1 and Command2 will run in parallel.
 
-  // Called repeatedly when this Command is scheduled to run
-  @Override
-  protected void execute() {
-  }
+    // A command group will require all of the subsystems that each member
+    // would require.
+    // e.g. if Command1 requires chassis, and Command2 requires arm,
+    // a CommandGroup containing them would require both the chassis and the
+    // arm.
 
-  // Make this return true when this Command no longer needs to run execute()
-  @Override
-  protected boolean isFinished() {
-    return false;
-  }
-
-  // Called once after isFinished returns true
-  @Override
-  protected void end() {
-  }
-
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
-  @Override
-  protected void interrupted() {
+    //TODO: Document code.
+    addSequential(new FindHatch());
+    addSequential(new FaceAngle(Robot.m_vision.GetDistAng()[1]));
+    addSequential(new DriveByTime(Robot.m_vision.TimeAwayAtSpeed()[1], 
+      Robot.m_vision.TimeAwayAtSpeed()[1], Robot.m_vision.TimeAwayAtSpeed()[0]));
+    addSequential(new BeakExtend());
+    addSequential(new OpenBeak());
   }
 }
