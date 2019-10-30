@@ -40,8 +40,7 @@ public class RobotMap {
 
 
   //Beak
-  public static final int hatchExtenderPort1 = 0;
-  public static final int hatchExtenderPort2 = 1;
+  public static final int beakExtenderPort = 0;
   public static final int beakGripPort1 = 2;
   public static final int beakGripPort2 = 3;
   

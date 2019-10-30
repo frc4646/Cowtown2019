@@ -21,12 +21,13 @@ public class BeakRetract extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    Robot.m_beak.retractHatcher();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.m_beak.retractHatcher();
+
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -44,5 +45,6 @@ public class BeakRetract extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    end();
   }
 }
