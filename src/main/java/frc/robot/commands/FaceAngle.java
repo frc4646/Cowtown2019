@@ -35,11 +35,11 @@ public class FaceAngle extends Command {
 
     if (gyroAngle - 2.5f < wantedAngle) //If gyro angle is less than the wanted angle:
     {
-      Robot.m_drivetrain.driveByPercent(0.5f, -0.5f); //Turn left
+      Robot.m_drivetrain.driveByPercent(0.5f, -0.5f); //Turn right
     }
-    else if (gyroAngle + 2.5f > wantedAngle) //If gyro angle is less than the wanted angle:
+    else if (gyroAngle + 2.5f > wantedAngle) //If gyro angle is greater than the wanted angle:
     {
-      Robot.m_drivetrain.driveByPercent(-0.5f, 0.5f); //Turn right
+      Robot.m_drivetrain.driveByPercent(-0.5f, 0.5f); //Turn left
     }
     else
     {

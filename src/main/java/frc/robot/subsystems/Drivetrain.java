@@ -15,6 +15,9 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import frc.robot.RobotMap;
 import frc.robot.commands.DriveTeleOp;
 import edu.wpi.first.wpilibj.AnalogGyro;
+import com.analog.adis16448.frc.ADIS16448_IMU.Axis;
+
+import com.analog.adis16448.frc.ADIS16448_IMU;
 
 /**
  * Docs: The drivetrain is powered by two VictorSPXs and two TalonSRXs.
@@ -52,7 +55,7 @@ public class Drivetrain extends Subsystem {
   private final Encoder backLeftEncoder;
   private final Encoder backRightEncoder;*/
 
-  private final AnalogGyro gyro;
+  private ADIS16448_IMU gyro;
   private int direction;
   //private final int encoderCountsPerInch;
 
@@ -71,7 +74,7 @@ public class Drivetrain extends Subsystem {
     frontRightDrive.setInverted(true);
     backRightDrive.setInverted(true);
   
-    gyro = new AnalogGyro(RobotMap.analogGyroPort);
+    gyro = new ADIS16448_IMU(Axis.kX); 
 
     //encoderCountsPerInch = -1; //Undetermined
     direction = 1;

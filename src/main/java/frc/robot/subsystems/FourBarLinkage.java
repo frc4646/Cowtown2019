@@ -12,6 +12,7 @@ import frc.robot.RobotMap;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.Encoder;
 import frc.robot.commands.LinkageHoldHeight;
+import edu.wpi.first.wpilibj.AnalogInput;
 
 /**
  * The way I hope the commands work is:
@@ -20,9 +21,9 @@ import frc.robot.commands.LinkageHoldHeight;
  */
 public class FourBarLinkage extends Subsystem {
 
-  private final Spark linkagePositionSpark; //Goes up and down (3 positions) 
+  private final Spark liftMotor; //Goes up and down (3 positions) 
   private final Spark cargoWheelSpark;
-  private final Encoder linkageEncoder;
+  private final AnalogInput linkageEncoder;
   private final int encoderCountsPerInch;
   
   private boolean usingJoysticks;
@@ -31,10 +32,14 @@ public class FourBarLinkage extends Subsystem {
   private final int maxHeight;
   private final int minValue;
   private final int maxValue;
-  private final double deltaHeight = 0.5f;
+  //private final double deltaHeight = 0.5f;
+  private double height;
+  private double pinVoltage;
+  private double m;
+  private double b;
 
-  public final int intakeSpeed;
-  public final int outakeSpeed;
+  public final double intakeSpeed;
+  public final double outakeSpeed;
 
   public final double holdPower;
   public final double minPower;
@@ -47,12 +52,11 @@ public class FourBarLinkage extends Subsystem {
   {
     linkagePositionSpark = new Spark(RobotMap.linkagePositionPort);
     cargoWheelSpark = new Spark(RobotMap.cargoWheelPort);
-    linkageEncoder = new Encoder(RobotMap.linkageEncoderPort1, RobotMap.linkageEncoderPort2);
+    linkageEncoder = new AnalogInput(RobotMap.linkageEncoderPort);
 
      //Undetermined values.
-    intakeSpeed = -1;
-    outakeSpeed = -1;
-    encoderCountsPerInch = -1;
+    intakeSpeed = 0.5f;
+    outakeSpeed = -0.25f;
     minHeight = -1;
     maxHeight = -1;
     minValue = -1;
@@ -70,11 +74,22 @@ public class FourBarLinkage extends Subsystem {
     setDefaultCommand(new LinkageHoldHeight());
   }
 
-  public void linkageLift(double speed)
-  {
-    linkagePositionSpark.set(speed);
+  public void LiftAtSpeed(double speed){
+    liftMotor.set(speed);
   }
-
+  
+  /*double LiftSystem::GetHeight(){
+    pinVoltage = LiftStringPotPin.GetVoltage(); //the current voltage from the string pot
+    
+    //this below converts volts into inches
+    m = (MinHeight - MaxHeight) / (double)(MinValue - MaxValue);
+    b = MinHeight - ((MinValue)*(m));
+  
+    height = ((m)*(pinVoltage)) + b;
+  
+    return height;
+  }*/
+  /* 
   public void linkageGoToHeight(double wantedHeight)
   {
     double motorPower;
@@ -141,7 +156,7 @@ public class FourBarLinkage extends Subsystem {
 
   public double getLinkageHeight() {
 		return getLinkageEncoderCount() / encoderCountsPerInch;
-  }
+  }*/
   
   public void cargoWheelIntake(double speed)
   {

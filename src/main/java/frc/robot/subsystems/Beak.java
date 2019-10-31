@@ -37,30 +37,34 @@ public class Beak extends Subsystem {
   public void initDefaultCommand() {
   }
 
-  public void extendHatcher()
+  public void extendBeak()
   {
     beakArm.set(BEAK_SPEED);
   }
 
   public boolean forwardStopperTouched()
   {
-    if (forwardStopper.get()) return true;
-    else return false;
+    return forwardStopper.get();
   }
 
-  public void retractHatcher()
+  public void stopBeakArm()
+  {
+    beakArm.set(0);
+  }
+
+  public void retractBeak()
   {
     beakArm.set(-BEAK_SPEED);
     Timer.delay(2.5);
     beakArm.set(0);
   }
 
-  public void openHatcher()
+  public void openBeak()
   {
     beakGrip.set(Value.kForward);
   }
 
-  public void closeHatcher()
+  public void closeBeak()
   {
     beakGrip.set(Value.kReverse);
   }
