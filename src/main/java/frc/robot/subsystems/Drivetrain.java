@@ -14,7 +14,6 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import frc.robot.RobotMap;
 import frc.robot.commands.DriveTeleOp;
-import edu.wpi.first.wpilibj.AnalogGyro;
 import com.analog.adis16448.frc.ADIS16448_IMU.Axis;
 
 import com.analog.adis16448.frc.ADIS16448_IMU;
@@ -76,7 +75,6 @@ public class Drivetrain extends Subsystem {
   
     gyro = new ADIS16448_IMU(Axis.kX); 
 
-    //encoderCountsPerInch = -1; //Undetermined
     direction = 1;
   }
 

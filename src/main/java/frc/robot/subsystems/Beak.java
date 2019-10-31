@@ -10,10 +10,8 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 import edu.wpi.first.wpilibj.Spark;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
-import edu.wpi.first.wpilibj.DigitalInput;
 
 
 /**
@@ -23,14 +21,13 @@ public class Beak extends Subsystem {
   
   private Spark beakArm;
   private DoubleSolenoid beakGrip;
-  private final int BEAK_SPEED;
-  private DigitalInput forwardStopper;
+  private final double BEAK_SPEED;
 
   public Beak()
   {
     beakArm = new Spark(RobotMap.beakExtenderPort);
     beakGrip = new DoubleSolenoid(RobotMap.beakGripPort1, RobotMap.beakGripPort2);
-    BEAK_SPEED = -1; //Undetermined Value
+    BEAK_SPEED = 0.25; //Undetermined Value
   }
 
   @Override
@@ -42,11 +39,6 @@ public class Beak extends Subsystem {
     beakArm.set(BEAK_SPEED);
   }
 
-  public boolean forwardStopperTouched()
-  {
-    return forwardStopper.get();
-  }
-
   public void stopBeakArm()
   {
     beakArm.set(0);
@@ -55,8 +47,6 @@ public class Beak extends Subsystem {
   public void retractBeak()
   {
     beakArm.set(-BEAK_SPEED);
-    Timer.delay(2.5);
-    beakArm.set(0);
   }
 
   public void openBeak()

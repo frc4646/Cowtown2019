@@ -21,18 +21,18 @@ public class BeakExtend extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    Robot.m_beak.extendBeak(); //Will be stopped by limit switch.
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.m_beak.extendBeak();
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return Robot.m_beak.forwardStopperTouched();
+    return false;
   }
 
   // Called once after isFinished returns true

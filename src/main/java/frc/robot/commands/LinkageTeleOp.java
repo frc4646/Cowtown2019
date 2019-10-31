@@ -11,6 +11,11 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 public class LinkageTeleOp extends Command {
+  private final double minValue = 0.1; //any joystick reading between -minPower and minPower will not affect lift power (lift will hold)
+  double liftPower;
+  double slope;
+  double power;
+
   public LinkageTeleOp() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
@@ -20,21 +25,31 @@ public class LinkageTeleOp extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    Robot.m_fourBarLinkage.HoldHeight();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if (Robot.m_fourBarLinkage.getUsingJoysticks())
+    if (!Robot.m_fourBarLinkage.GetLiftToHeight())
     {
-      if (Robot.m_io.getmechJoyY() == 0)
+      if (Robot.m_io.getMechJoyY() > minValue)
       {
-        Robot.m_fourBarLinkage.linkageHoldHeight();
+        slope = (Robot.m_fourBarLinkage.MAX_POWER - Robot.m_fourBarLinkage.HOLD_POWER)/(1.0 - minValue);
+        power = slope * (Robot.m_io.getMechJoyY() - 1.0) + Robot.m_fourBarLinkage.MAX_POWER;
+      }
+      else if (Robot.m_io.getMechJoyY() < -minValue)
+      {
+        slope = (Robot.m_fourBarLinkage.MIN_POWER - Robot.m_fourBarLinkage.HOLD_POWER)/(minValue - 1.0);
+        power = slope * (Robot.m_io.getMechJoyY() + 1.0) + Robot.m_fourBarLinkage.MIN_POWER;
       }
       else
       {
-        Robot.m_fourBarLinkage.linkageLift(Robot.m_io.getmechJoyY());
+        power = Robot.m_fourBarLinkage.HOLD_POWER;
+        System.out.printf("Lift Tele Op is holding!");
       }
+      
+      Robot.m_fourBarLinkage.LiftAtSpeed(power);
     }
   }
 
@@ -47,7 +62,7 @@ public class LinkageTeleOp extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.m_fourBarLinkage.linkageHoldHeight();
+    Robot.m_fourBarLinkage.HoldHeight();
   }
 
   // Called when another command which requires one or more of the same

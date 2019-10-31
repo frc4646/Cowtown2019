@@ -54,17 +54,17 @@ public class IO
         rightButton11 = new JoystickButton(rightJoy, 11),
         rightButton12 = new JoystickButton(rightJoy, 12);
 
-    public double getrightJoyX()
+    public double getRightJoyX()
     {
         return rightJoy.getRawAxis(1);
     }
 
-    public double getrightJoyY()
+    public double getRightJoyY()
     {
         return rightJoy.getRawAxis(2);
     }
 
-    public double getrightJoyThrottle()
+    public double getRightJoyThrottle()
     {
         return rightJoy.getRawAxis(3);
     }
@@ -82,17 +82,17 @@ public class IO
         mechButton11 = new JoystickButton(mechJoy, 11),
         mechButton12 = new JoystickButton(mechJoy, 12);
 
-    public double getmechJoyX()
+    public double getMechJoyX()
     {
         return mechJoy.getRawAxis(1);
     }
 
-    public double getmechJoyY()
+    public double getMechJoyY()
     {
         return mechJoy.getRawAxis(2);
     }
 
-    public double getmechJoyThrottle()
+    public double getMechJoyThrottle()
     {
         return mechJoy.getRawAxis(3);
     }

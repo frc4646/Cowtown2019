@@ -41,9 +41,9 @@ public class OI
     Robot.m_io.leftButton2.whenPressed(new InvertDriveDirection());
 
     // Mech Buttons for Linkage Heights
-    Robot.m_io.mechButton12.whenPressed(new LinkageGoToHeight(Robot.m_fourBarLinkage.level1Height));
-    Robot.m_io.mechButton10.whenPressed(new LinkageGoToHeight(Robot.m_fourBarLinkage.level2Height));
-    Robot.m_io.mechButton8.whenPressed(new LinkageGoToHeight(Robot.m_fourBarLinkage.level3Height));
+    Robot.m_io.mechButton12.whenPressed(new LinkageGoToHeight(Robot.m_fourBarLinkage.LEVEL1_HEIGHT));
+    Robot.m_io.mechButton10.whenPressed(new LinkageGoToHeight(Robot.m_fourBarLinkage.LEVEL2_HEIGHT));
+    Robot.m_io.mechButton8.whenPressed(new LinkageGoToHeight(Robot.m_fourBarLinkage.LEVEL3_HEIGHT));
 
   }
 }

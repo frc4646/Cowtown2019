@@ -10,174 +10,103 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 import edu.wpi.first.wpilibj.Spark;
-import edu.wpi.first.wpilibj.Encoder;
-import frc.robot.commands.LinkageHoldHeight;
+import frc.robot.commands.LinkageTeleOp;
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- * The way I hope the commands work is:
- * LinkageGoToHeight overrides LinkageTeleOp
- * When nothing happening, it run LinkageHoldHeight
+ * Add your docs here.
  */
 public class FourBarLinkage extends Subsystem {
 
-  private final Spark liftMotor; //Goes up and down (3 positions) 
-  private final Spark cargoWheelSpark;
-  private final AnalogInput linkageEncoder;
-  private final int encoderCountsPerInch;
-  
-  private boolean usingJoysticks;
-  
-  private final int minHeight;
-  private final int maxHeight;
-  private final int minValue;
-  private final int maxValue;
-  //private final double deltaHeight = 0.5f;
-  private double height;
-  private double pinVoltage;
-  private double m;
-  private double b;
+  private final Spark liftMotor; //The lift motor.
+  private final AnalogInput liftEncoderPin; //The encoder for the lift motor.
+  private final Spark cargoWheelSpark; //The intake motors.
 
-  public final double intakeSpeed;
-  public final double outakeSpeed;
+  public final double INTAKE_SPEED, OUTAKE_SPEED;  //The intake  and outake speeds.
 
-  public final double holdPower;
-  public final double minPower;
-  public final double maxPower;
-  public final double level1Height;
-  public final double level2Height;
-  public final double level3Height;
+  private boolean liftToHeight; //True if running LinkageGoToHeight()
+
+  private double height, pinVoltage, m, b; //The values needed to convert the voltage of the encoder to inches.
+
+  public final double MIN_HEIGHT, MAX_HEIGHT; //The mininum  and maximum height in inches.
+  private final double MIN_VALUE, MAX_VALUE; //Voltage at mininum and maximum height.
+
+  public final double HOLD_POWER, MIN_POWER, MAX_POWER; //The hold, minimum, and maximum power of the lift motor.
+  public final double DOWN_POWER, UP_POWER; //The power when moving to heights downward and upwards.
+  public final double LEVEL1_HEIGHT, LEVEL2_HEIGHT, LEVEL3_HEIGHT; //Level 1, 2, and 3's height in inches.
 
   public FourBarLinkage()
   {
-    linkagePositionSpark = new Spark(RobotMap.linkagePositionPort);
-    cargoWheelSpark = new Spark(RobotMap.cargoWheelPort);
-    linkageEncoder = new AnalogInput(RobotMap.linkageEncoderPort);
+    SmartDashboard.putNumber("Lift height in inches", GetHeight());
 
-     //Undetermined values.
-    intakeSpeed = 0.5f;
-    outakeSpeed = -0.25f;
-    minHeight = -1;
-    maxHeight = -1;
-    minValue = -1;
-    maxValue = -1;
-    holdPower = -1;
-    minPower = -1;
-    maxPower = -1;
-    level1Height = -1;
-    level2Height = -1;
-    level3Height = -1;
+    liftMotor = new Spark(RobotMap.linkagePositionPort);
+    cargoWheelSpark = new Spark(RobotMap.cargoWheelPort);
+    liftEncoderPin = new AnalogInput(RobotMap.linkageEncoderPort);
+
+    liftToHeight = false;
+
+    //Undetermined values below.
+    INTAKE_SPEED = 0.5f;
+    OUTAKE_SPEED = -0.25f;
+    MIN_HEIGHT = 10.5;
+    MAX_HEIGHT = 81;
+    MIN_VALUE = 1.355;
+    MAX_VALUE = 3.173;
+    HOLD_POWER = 0.2f;
+    MIN_POWER = -0.5;
+    MAX_POWER = 0.8;    
+    DOWN_POWER = -0.3f;
+    UP_POWER = 0.5f;
+    LEVEL1_HEIGHT = 19;
+    LEVEL2_HEIGHT = 47;
+    LEVEL3_HEIGHT = 75;
   }
 
   @Override
   public void initDefaultCommand() {
-    setDefaultCommand(new LinkageHoldHeight());
+    setDefaultCommand(new LinkageTeleOp());
   }
 
+  //Intake methods
+  public void cargoWheelIntake()
+  {
+    cargoWheelSpark.set(INTAKE_SPEED);
+  }
+
+  public void cargoWheelOutake()
+  {
+    cargoWheelSpark.set(OUTAKE_SPEED);
+  }
+
+  //LIFT METHODS
   public void LiftAtSpeed(double speed){
     liftMotor.set(speed);
   }
-  
-  /*double LiftSystem::GetHeight(){
-    pinVoltage = LiftStringPotPin.GetVoltage(); //the current voltage from the string pot
-    
-    //this below converts volts into inches
-    m = (MinHeight - MaxHeight) / (double)(MinValue - MaxValue);
-    b = MinHeight - ((MinValue)*(m));
-  
+
+  public double GetHeight() //Converts voltage of analog encoder to inches.
+  {
+    pinVoltage = liftEncoderPin.getVoltage();
+    m = (MIN_HEIGHT - MAX_HEIGHT) / (double)(MIN_VALUE - MAX_VALUE);
+    b = MIN_HEIGHT - ((MIN_VALUE)*(m));
     height = ((m)*(pinVoltage)) + b;
-  
     return height;
-  }*/
-  /* 
-  public void linkageGoToHeight(double wantedHeight)
-  {
-    double motorPower;
-    //double distanceDifference = Math.abs(getLinkageHeight()-wantedHeight);
-    boolean isEncoderPositionHigher = getLinkageHeight()+deltaHeight > wantedHeight;
-    boolean isEncoderPositionLower = getLinkageHeight()-deltaHeight < wantedHeight;
-
-    if (isEncoderPositionHigher)
-    {
-      motorPower = holdPower - 0.10;
-    }
-    else if (isEncoderPositionLower)
-    {
-      motorPower = holdPower + 0.15;
-    }
-    else
-    {
-      motorPower = holdPower;
-    }
-    
-    linkagePositionSpark.set(motorPower);
-  }
-  
-
-  public boolean isAtHeight(double wantedHeight)
-  {
-    boolean isEncoderPositionHigher = getLinkageHeight()+deltaHeight > wantedHeight;
-    boolean isEncoderPositionLower = getLinkageHeight()-deltaHeight < wantedHeight;
-
-    if (!isEncoderPositionHigher && !isEncoderPositionLower)
-    {
-      return true;
-    }
-    else
-    {
-      return false;
-    }
   }
 
-  public void linkageHoldHeight()
+  public void HoldHeight() //Holds the lift mechanism in place.
   {
-    linkagePositionSpark.set(holdPower);
+    liftMotor.set(HOLD_POWER);
   }
 
-  public boolean getUsingJoysticks()
+
+
+  public boolean GetLiftToHeight()
   {
-    return usingJoysticks;
+    return liftToHeight;
   }
 
-  public void setUsingJoysticks(boolean value)
+  public void SetLiftToHeight(boolean value)
   {
-    usingJoysticks = value;
-  }
-
-  public void resetLinkageEncoderCount()
-  {
-    linkageEncoder.reset();
-  }
-
-  public double getLinkageEncoderCount()
-  {
-    return linkageEncoder.get();
-  }
-
-  public double getLinkageHeight() {
-		return getLinkageEncoderCount() / encoderCountsPerInch;
-  }*/
-  
-  public void cargoWheelIntake(double speed)
-  {
-    cargoWheelSpark.set(speed);
-  }
-
-  public void cargoWheelOutake(double speed)
-  {
-    cargoWheelSpark.set(-speed);
-  }
-
-  public double Level1Height(int height)
-  {
-    return level1Height;
-  }
-  public double Level2Height(int height)
-  {
-    return level2Height;
-  }
-  public double Level3Height(int height)
-  {
-    return level3Height;
+    liftToHeight = value;
   }
 }

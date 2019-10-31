@@ -8,6 +8,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Robot;
 
 
@@ -22,6 +23,8 @@ public class BeakRetract extends Command {
   @Override
   protected void initialize() {
     Robot.m_beak.retractBeak();
+    Timer.delay(3f);
+    Robot.m_beak.stopBeakArm();
   }
 
   // Called repeatedly when this Command is scheduled to run

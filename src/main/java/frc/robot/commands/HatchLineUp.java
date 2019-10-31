@@ -15,9 +15,7 @@ import frc.robot.commands.FaceAngle;
 import frc.robot.commands.DriveByTime;
 import frc.robot.Robot;
 import frc.robot.commands.BeakExtend;
-import frc.robot.commands.BeakRetract;
 import frc.robot.commands.OpenBeak;
-import frc.robot.commands.CloseBeak;
 
 public class HatchLineUp extends CommandGroup {
   /**
@@ -41,7 +39,6 @@ public class HatchLineUp extends CommandGroup {
     // a CommandGroup containing them would require both the chassis and the
     // arm.
 
-    //TODO: Document code.
     addSequential(new FindHatch());
     addSequential(new FaceAngle(Robot.m_vision.GetDistAng()[1]));
     addSequential(new DriveByTime(Robot.m_vision.TimeAwayAtSpeed()[1], 

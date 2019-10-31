@@ -14,7 +14,7 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 
-//pipeline, drive_mode, timestamp
+//pipeline, drive_mode, timestamp are extra target tables not used.
 
 /**
  * Add your docs here.

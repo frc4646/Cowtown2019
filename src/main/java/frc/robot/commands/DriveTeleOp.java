@@ -26,7 +26,7 @@ public class DriveTeleOp extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.m_drivetrain.driveByPercent(Robot.m_io.getLeftJoyY(), Robot.m_io.getrightJoyY());
+    Robot.m_drivetrain.driveByPercent(Robot.m_io.getLeftJoyY(), Robot.m_io.getRightJoyY());
   }
 
   // Make this return true when this Command no longer needs to run execute()
