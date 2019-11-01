@@ -24,30 +24,26 @@ public class RobotMap {
   // public static int rangefinderPort = 1;
   // public static int rangefinderModule = 1;
 
-  public static final int frontLeftDrivePort = 2;
-  public static final int frontRightDrivePort = 0;
-  public static final int backLeftDrivePort = 3;
-  public static final int backRightDrivePort = 1;
+  //Drivetrain
+  public static final int frontLeftDrivePort = 2; //Done
+  public static final int frontRightDrivePort = 0; //Done
+  public static final int backLeftDrivePort = 3; //Done
+  public static final int backRightDrivePort = 1; //Done
 
+  //Joysticks
   public static final int leftJoyPort = 0;
   public static final int rightJoyPort = 1;
   public static final int mechJoyPort = 2;
 
-  //The below motor ports are not determined yet
-  
-  //Drivetrain
-  public static final int analogGyroPort = 0;
-
-
   //Beak
-  public static final int beakExtenderPort = 0;
-  public static final int beakGripPort1 = 2;
-  public static final int beakGripPort2 = 3;
-  public static final int compressorPort = 0;
+  public static final int beakExtenderPort = 0; //Done
+  public static final int beakGripPort1 = 0; //Done
+  public static final int beakGripPort2 = 1; //Done
+  public static final int compressorPort = 0; //Done
   
   //Linkage
-  public static final int linkagePositionPort = 0;
-  public static final int cargoWheelPort = 1;
-  public static final int linkageEncoderPort = 0;
+  public static final int linkageLiftPort =  1; //Done
+  public static final int cargoWheelPort = 2; //Done
+  public static final int linkageEncoderPort = 0; //Done
 
 }

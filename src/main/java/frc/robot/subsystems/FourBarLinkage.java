@@ -40,7 +40,7 @@ public class FourBarLinkage extends Subsystem {
   {
     SmartDashboard.putNumber("Lift height in inches", GetHeight());
 
-    liftMotor = new Spark(RobotMap.linkagePositionPort);
+    liftMotor = new Spark(RobotMap.linkageLiftPort);
     cargoWheelSpark = new Spark(RobotMap.cargoWheelPort);
     liftEncoderPin = new AnalogInput(RobotMap.linkageEncoderPort);
 
