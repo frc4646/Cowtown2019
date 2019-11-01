@@ -45,9 +45,9 @@ import com.analog.adis16448.frc.ADIS16448_IMU;
 
 public class Drivetrain extends Subsystem {
 
-  private final VictorSPX frontLeftDrive;
+  private final TalonSRX frontLeftDrive;
   private final TalonSRX frontRightDrive;
-  private final TalonSRX backLeftDrive;
+  private final VictorSPX backLeftDrive;
   private final VictorSPX backRightDrive;
   /*private final Encoder frontLeftEncoder;
   private final Encoder frontRightEncoder;
@@ -60,9 +60,9 @@ public class Drivetrain extends Subsystem {
 
   public Drivetrain()
   {
-    frontLeftDrive = new VictorSPX(RobotMap.frontLeftDrivePort);
+    frontLeftDrive = new TalonSRX(RobotMap.frontLeftDrivePort);
     frontRightDrive = new TalonSRX(RobotMap.frontRightDrivePort);
-    backLeftDrive = new TalonSRX(RobotMap.backLeftDrivePort);
+    backLeftDrive = new VictorSPX(RobotMap.backLeftDrivePort);
     backRightDrive = new VictorSPX(RobotMap.backRightDrivePort);
 
     /*frontLeftEncoder = new Encoder(RobotMap.frontLeftEncoderPort1, RobotMap.frontLeftEncoderPort2);

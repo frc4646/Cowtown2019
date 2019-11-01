@@ -28,17 +28,17 @@ public class IO
 
     public double getLeftJoyX()
     {
-        return leftJoy.getRawAxis(1);
+        return leftJoy.getRawAxis(0);
     }
 
     public double getLeftJoyY()
     {
-        return leftJoy.getRawAxis(2);
+        return leftJoy.getRawAxis(1);
     }
 
     public double getLeftJoyThrottle()
     {
-        return leftJoy.getRawAxis(3);
+        return leftJoy.getRawAxis(2);
     }
 
     public JoystickButton rightTrigger = new JoystickButton(rightJoy, 1),
@@ -56,17 +56,17 @@ public class IO
 
     public double getRightJoyX()
     {
-        return rightJoy.getRawAxis(1);
+        return rightJoy.getRawAxis(0);
     }
 
     public double getRightJoyY()
     {
-        return rightJoy.getRawAxis(2);
+        return rightJoy.getRawAxis(1);
     }
 
     public double getRightJoyThrottle()
     {
-        return rightJoy.getRawAxis(3);
+        return rightJoy.getRawAxis(2);
     }
 
     public JoystickButton mechTrigger = new JoystickButton(mechJoy, 1),
@@ -84,16 +84,16 @@ public class IO
 
     public double getMechJoyX()
     {
-        return mechJoy.getRawAxis(1);
+        return mechJoy.getRawAxis(0);
     }
 
     public double getMechJoyY()
     {
-        return mechJoy.getRawAxis(2);
+        return mechJoy.getRawAxis(1);
     }
 
     public double getMechJoyThrottle()
     {
-        return mechJoy.getRawAxis(3);
+        return mechJoy.getRawAxis(2);
     }
 }

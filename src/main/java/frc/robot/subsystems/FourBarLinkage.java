@@ -38,7 +38,6 @@ public class FourBarLinkage extends Subsystem {
 
   public FourBarLinkage()
   {
-    SmartDashboard.putNumber("Lift height in inches", GetHeight());
 
     liftMotor = new Spark(RobotMap.linkageLiftPort);
     cargoWheelSpark = new Spark(RobotMap.cargoWheelPort);
@@ -61,6 +60,8 @@ public class FourBarLinkage extends Subsystem {
     LEVEL1_HEIGHT = 19;
     LEVEL2_HEIGHT = 47;
     LEVEL3_HEIGHT = 75;
+
+    SmartDashboard.putNumber("Lift height in inches", GetHeight());
   }
 
   @Override

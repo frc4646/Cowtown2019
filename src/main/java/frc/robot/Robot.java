@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.Compressor;
 
 //Subsystems:
 import frc.robot.IO;
@@ -42,6 +43,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+    Compressor compressor = new Compressor(RobotMap.compressorPort);
+    compressor.start();
+
     m_drivetrain = new Drivetrain();
     m_beak = new Beak();
     m_fourBarLinkage = new FourBarLinkage();

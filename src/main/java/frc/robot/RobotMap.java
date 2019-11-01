@@ -26,9 +26,9 @@ public class RobotMap {
 
   //Drivetrain
   public static final int frontLeftDrivePort = 2; //Done
-  public static final int frontRightDrivePort = 0; //Done
+  public static final int frontRightDrivePort = 1; //Done
   public static final int backLeftDrivePort = 3; //Done
-  public static final int backRightDrivePort = 1; //Done
+  public static final int backRightDrivePort = 0; //Done
 
   //Joysticks
   public static final int leftJoyPort = 0;
