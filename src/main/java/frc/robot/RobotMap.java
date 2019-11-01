@@ -43,6 +43,7 @@ public class RobotMap {
   public static final int beakExtenderPort = 0;
   public static final int beakGripPort1 = 2;
   public static final int beakGripPort2 = 3;
+  public static final int compressorPort = 0;
   
   //Linkage
   public static final int linkagePositionPort = 0;

@@ -8,7 +8,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
-
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.networktables.EntryListenerFlags;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
@@ -34,6 +34,8 @@ public class Vision extends Subsystem {
 
   public Vision()
   {
+    CameraServer.getInstance().startAutomaticCapture();
+
     inst = NetworkTableInstance.getDefault();
 
     hatchTargetTable = inst.getTable("Microsoft® LifeCam HD-3000");

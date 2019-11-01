@@ -12,7 +12,7 @@ import frc.robot.RobotMap;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
-
+import edu.wpi.first.wpilibj.Compressor;
 
 /**
  * Add your docs here.
@@ -22,11 +22,15 @@ public class Beak extends Subsystem {
   private Spark beakArm;
   private DoubleSolenoid beakGrip;
   private final double BEAK_SPEED;
+  Compressor compressor;
 
   public Beak()
   {
     beakArm = new Spark(RobotMap.beakExtenderPort);
     beakGrip = new DoubleSolenoid(RobotMap.beakGripPort1, RobotMap.beakGripPort2);
+    compressor = new Compressor(RobotMap.compressorPort);
+    compressor.start();
+
     BEAK_SPEED = 0.25; //Undetermined Value
   }
 
